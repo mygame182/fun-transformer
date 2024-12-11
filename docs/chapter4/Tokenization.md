@@ -159,11 +159,13 @@ CRF算法通过对汉字进行标注训练，不仅考虑词语的出现频率�
 
 他们的分词示例如下图，而五笔、拼音是2种中文输入法。
 
-图
+![image](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter4/images/Token1.png)
 
 其中五笔输入法的例子如下图：
 
-图
+
+![image](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter4/images/Token2.png)
+
 
 目前一般**个人或小型企业**，鉴于**能力和数据集的不足**，大多只能对基础模型进行微调，而微调只能使用与基础模型相同的标记化方法。如果要使用针对繁体中文特制的tokenization 方法，就必须要对基础模型进行持续预训练，然后使用新的tokens和更新后的词汇表对模型进行预训练。 
 
