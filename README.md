@@ -38,6 +38,7 @@
 - 2. 掩码(Mask)
 - 3. 模型的训练与评估
 - 4. 高级主题和应用
+- 5. [Tokenization](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter4/Tokenization.md)
   
 第五章 Project
 - 1. 项目案例[实践项目](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter5/实践项目.ipynb)
