@@ -10,7 +10,7 @@
 | ------------- | ------------- |------------- |
 | 第一章 | 引言[introduction](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter1/introduction.md) |词嵌入[低维映射到高维](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter1/低维映射到高维.ipynb)|
 | 第二章 | Transformer简述[Transformer](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter2/Transformer.md) |  相对位置向量[相对位置向量](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter2/相对位置向量.ipynb)  |
-| 第三章 | Encoder结构[Encoder](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter3/Encoder.md)   | 交叉注意力[Cross-Attention](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter3/Cross-Attention.ipynb)      |
+| 第三章 | Encoder结构[Encoder](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter3/Encoder.md)   | 交叉注意力[Cross-Attention](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter3/CrossAttention.ipynb)      |
 |第四章   |Decoder结构[Decoder](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter4/Decoder.md)| bert[apply-bert](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter4/apply-bert.ipynb)、gpt[apply-gpt](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter4/apply-gpt.ipynb)      |
 |第五章 |项目实践| 机器翻译项目案例、Transformer结构拆解、使用 NumPy 和 SciPy 实现通用注意力机制|
 
