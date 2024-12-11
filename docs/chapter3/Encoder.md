@@ -160,12 +160,15 @@ $h=8\text{, }d_k=d_v=d_{model}/4=64$
     
 ![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter3/images/C3image10.png)
     
-在Google的论文中，大部分的 Attention 都是Self Attention，即“**自注意力**”，或者叫内部注意力。也就是说，在序列内部做 Attention，寻找序列内部的联系。体现在公式上就是**Attention(X,X,X)，X是输入序列。**<p>
-内部注意力在机器翻译（甚至是一般的Seq2Seq任务）的序列编码上是相当重要的，而之前关于 Seq2Seq 的研究基本都只是把注意力机制用在解码端。<p>
-更准确来说，Google所用的是 Self Multi-Head Attention：
-$Y=MultiHead(X,X,X)$
-Multi-Head-Attention 就是将 embedding之后的 X 按维度 d_model=512  切割成 h=8 个，分别做self-attention 之后再合并在一起。
+在 Google 的论文中，所采用的大部分 Attention 机制为 Self Attention，也就是 “自注意力”，亦称为内部注意力。
 
+Self Attention 是在序列内部进行 Attention 操作，旨在寻找序列内部的联系。其原理可进一步解释为：Attention 的输入是 Q（Query）、K（Key）、V（Value），对于自注意力而言，是对同一个输入序列 X，分别进行三种独立的线性变换得到 Q_x、K_x、V_x 后，将其输入 Attention，体现在公式上即 Attention (Q_x, K_x, V_x)。
+
+在机器翻译乃至一般的 Seq2Seq 任务中，内部注意力在序列编码方面相当关键。以往关于 Seq2Seq 的研究大多仅将注意力机制应用于解码端，而 Google 的创新之处在于使用 Self Multi-Head Attention 进行序列编码，其计算公式为
+$Y=MultiHead(X,X,X)$
+即把同一个序列同时当作查询（Query）、键（Key）以及值（Value）来参与注意力机制的运算，以此挖掘序列内部诸如句子中单词之间的语义关联、语法结构依存关系等各种联系。
+
+Multi-Head-Attention 的具体操作是将经过 embedding 后的 X 按照维度 d_model = 512 切割成 h = 8 个部分，分别进行 self-attention 计算，之后再将结果合并在一起。
 ### 2.3.1自注意力的工作原理
 考虑一句话：“The cat sat on the mat.”<p>
 **(1)嵌入**<p>
