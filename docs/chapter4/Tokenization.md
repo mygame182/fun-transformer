@@ -172,22 +172,37 @@ CRF算法通过对汉字进行标注训练，不仅考虑词语的出现频率�
 
 # 6.参考引用：
 https://www.sciencedirect.com/science/article/pii/S1319157823002082#f0005
+
 https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00560/116047/Sub-Character-Tokenization-for-Chinese-Pretrained
+
 https://jina.ai/zh-CN/news/a-deep-dive-into-tokenization/
+
 https://github.com/thunlp/SubCharTokenization
+
 https://huggingface.co/thunlp/SubCharTokenization/tree/main
 # 7.中文分词工具
 https://github.com/hankcs/HanLP
+
 https://github.com/stanfordnlp/CoreNLP
+
 https://github.com/NLPchina/ansj_seg
+
 https://github.com/HIT-SCIR/ltp
+
 https://github.com/koth/kcws
+
 https://github.com/yanyiwu/cppjieba
+
 https://github.com/wks/ik-analyzer
+
 https://github.com/thunlp/THULAC
+
 https://github.com/thunlp/THULAC
 # 8.英文分词工具
 https://github.com/keras-team/keras
+
 https://github.com/explosion/spaCy
+
 https://github.com/RaRe-Technologies/gensim
+
 https://github.com/nltk/nltk
