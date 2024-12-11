@@ -247,10 +247,11 @@ Encoder 的输入包含**词向量**(**Word Embedding **)和**位置向量**(**P
 ### 4.2.1 具有位置信息的编码实现
 以往的位置向量是通过学习获得的，Google在论文中提到，他们比较过直接训练出来的位置向量和下面公式计算出来的位置向量，两者效果是接近的。我们这里选用公式构造的Position Embedding了，**优点**是不需要训练参数，而且即使在训练集中没有出现过的句子长度上也能用。<p>
 Positional Encoding的公式如下：
-  $$\mathrm{PE}_{(pos,2i)}=\sin\left(\frac{pos}{10000^{2i/d_{\mathrm{model}}}}\right)\\
-$$                
 
-$$\mathrm{PE}_{(pos,2i+1)}=\cos\left(\frac{pos}{10000^{2i/d_{\mathrm{model}}}}\right)$$
+$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)$
+
+$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$
+
     
 ![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images12.png)
     
@@ -265,7 +266,11 @@ $$\mathrm{PE}_{(pos,2i+1)}=\cos\left(\frac{pos}{10000^{2i/d_{\mathrm{model}}}}\r
     
 ### 4.2.2 为什么选用公式构造的Position Embedding
 Position Embedding本身是一个**绝对位置**的信息，但在语言中，**相对位置**也很重要。
-Google选择上述的位置向量公式的一个重要原因是：由于我们有$$\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta $$ 以及 $$\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta $$，这表明位置p+k 的向量可以表示成位置 p 的向量的**线性变换**，这种机制便于模型捕捉序列中不同位置的元素之间的相对位置关系。
+Google选择上述的位置向量公式的一个重要原因是：由于我们有这张图片展示了一个三角恒等式，即两角和的正弦公式。公式内容如下：
+$\ \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \$
+这是一个基本的三角学公式，用于计算两个角度之和的正弦值。公式左边是两个角度的和的正弦，右边则是这两个角的正弦和余弦的组合。
+
+ 以及 $$\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta $$，这表明位置p+k 的向量可以表示成位置 p 的向量的**线性变换**，这种机制便于模型捕捉序列中不同位置的元素之间的相对位置关系。
 
 ### 4.2.3 相对位置信息
 相对位置:  周期性变化规律
