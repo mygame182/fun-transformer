@@ -1,2 +1,4 @@
-
 *.ipynb linguist-language=Python
+git add .gitattributes
+git commit -m "Update .gitattributes for language statistics"
+git push
