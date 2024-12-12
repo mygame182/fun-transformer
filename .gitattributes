@@ -1,1 +1,2 @@
-python linguist-language=python
+*.ipynb linguist-language=python
+*.md linguist-language=python
