@@ -188,7 +188,7 @@ Encoder-Decoder 的工作原理：想象一下，你有一个翻译笔，它能�
 
 ## 2.3 Encoder-Decoder 的应用
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter1/images/image%20(4).png)
+![images](https://github.com/datawhalechina/fun-transformer/blob/main/docs/chapter1/images/image4.jpg)
     
 **机器翻译、对话机器人、诗词生成、代码补全、文章摘要（文本 – 文本）**<p>
 “文本 – 文本” 是最典型的应用，其输入序列和输出序列的长度可能会有较大的差异。<p>
