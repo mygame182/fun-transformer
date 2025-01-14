@@ -63,12 +63,14 @@ $W_p$
 是训练过程中学习到的模型参数，S 是源句子长度。
 
 下图展示了全局和局部注意力机制之间的区别。全局注意力考虑所有隐藏状态（蓝色），而局部注意力仅考虑一个子集：
-    
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images1.png)
+
+![图片描述](./images/C2images1.png)
+
     
 # 2. Transformer概述
 ## 2.1 Transformer模型
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images3.png)
+![图片描述](./images/C2images2.png)
+
 **编码器-解码器架构**<p>
 Transformer的核心是其编码器-解码器架构——两个关键组件之间的共生关系，分别负责处理输入序列和生成输出序列。编码器和解码器中的每一层都包含相同的子层，包括自注意力机制和前馈网络。这种架构不仅有助于全面理解输入序列，而且能够生成上下文丰富的输出序列。<p>
 **位置编码**<p>
@@ -78,7 +80,7 @@ Transformer模型的一个显著特征是它能够同时关注输入序列的不
 **前馈网络**<p>
 与人类大脑能够并行处理信息的能力类似，Transformer模型中的每一层都包含一个前馈网络——一种能够捕捉序列中元素之间复杂关系的多功能组件。通过使用线性变换和非线性激活函数，前馈网络使模型能够在语言的复杂语义景观中航行，促进文本的理解和生成。
 
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images2.png)
+![图片描述](./images/C2images3.png)
 
     
 如上图，transformer模型本质上是一个Encoder-Decoder的结构。输入序列(inputs)先进行Embedding，经过Encoder之后结合上一次output再输入Decoder，最后用softmax计算序列下一个word的概率。
@@ -90,12 +92,12 @@ Transformer模型的一个显著特征是它能够同时关注输入序列的不
 
 在第一句中，“it”指的是“猫”，而在第二句中，它指的是“牛奶”。当模型处理单词“it”时，self-attention 会给模型提供更多关于其含义的信息，以便它能够将“it”与正确的单词联系起来。
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images4.png)
+![图片描述](./images/C2images4.png)
 
 为了使它能够处理更多关于句子的意图和语义的细微差别，Transformer为每个单词提供了**多个注意力分数**。<p>
 例如，在处理单词“it”时，第一个分数突出了“cat”，而第二个分数突出了“hungry”。因此，当它解码单词“it”时，通过将其翻译成另一种语言，它会将“cat”和“hungry”的某些方面结合到翻译的单词中。
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images5.png)
+![图片描述](./images/C2images5.png)
 
 ## 2.3 小故事讲解
 Transformer模型具体是如何工作的，为方便理解，先看个简单的案例感受一下流程。<p>
@@ -119,14 +121,14 @@ Transformer模型具体是如何工作的，为方便理解，先看个简单的
 - 这样，Transformer模型就像一个高效的聚会组织者，能够根据不同的需求和关联性来完成任务。
     
 ## 2.4 Transformer 的发展历程
-![iamges](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images6.png)
+![图片描述](./images/C2images6.png)
 
 2013年----word Embedding<p>
 2017年----Transformer<p>
 2018年----ELMo、Transformer-decoder、GPT-1、BERT<p>
 2019年----Transformer-XL、XLNet、GPT-2<p>
 2020年----GPT-3<p>
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images7.png)  
+![图片描述](./images/C2images7.png)
 
     
 ## 2.5 Transformer的提出对seq2seq模型的影响：
@@ -148,11 +150,11 @@ Transformer的成功为BERT（Bidirectional Encoder Representations from Transfo
 ## 2.6 迁移学习
 预训练是一种从头开始训练模型的方式：所有的模型权重都被随机初始化，然后在没有任何先验知识的情况下开始训练。这个过程不仅需要海量的训练数据，而且时间和经济成本都非常高。
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images8.png)
+![图片描述](./images/C2images8.png)
     
 因此，大部分情况下，我们都不会从头训练模型，而是将别人预训练好的模型权重通过迁移学习应用到自己的模型中，即使用自己的任务语料对模型进行“二次训练”，通过微调参数使模型适用于新任务。
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images9.png)
+![图片描述](./images/C2images9.png)
     
 1. 预训练模型的兴起<p>
 Transformer模型的自注意力机制和深度堆叠架构为预训练模型提供了一个强大的基础。这种架构能够捕捉复杂的语言特征和长距离依赖关系，使得模型在预训练阶段能够从大量**未标注文本**中学习丰富的语言表示。
@@ -171,7 +173,7 @@ Transformer模型的结构也易于扩展到多语言和多模态任务。例如
 假设输入序列长度为n，每个元素的**维度为 d**，输出序列**长度也为 n**，每个元素的**维度也是 d**。
 可以从每层的计算复杂度、并行的操作数量、学习距离长度三个方面比较 Transformer、CNN、RNN 三个特征提取器。
 
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images10.png)
+![图片描述](./images/C2images10.png)
 
 **Q、K、V知识引入**
 
@@ -238,8 +240,7 @@ Encoder 的输入包含**词向量**(**Word Embedding **)和**位置向量**(**P
 > 当一个参数被标记为"Trainable"时，意味着它将参与训练过程，即它的值会随着训练的进行而改变。相反，如果一个参数被"Freeze"（冻结），则其值在训练过程中保持不变，即使计算出了梯度也不会更新这个参数。
     
 ## 4.2 位置编码(Position Embedding)
-
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images11.png)
+![图片描述](./images/C2images11.png)
     
 **为什么要使用位置编码？**<p>
 在RNN中，对句子的处理是一个个 word **按顺序输入的**。但在 Transformer 中，输入句子的所有word是**同时处理**的，没有考虑词的排序和位置信息。因此，Transformer 的作者提出了加入 “positional encoding” 的方法来解决这个问题。“positional encoding“”使得 Transformer 可以衡量 word 位置有关的信息。
@@ -252,15 +253,14 @@ $PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)$
 
 $PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$
 
-    
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images12.png)
+![图片描述](./images/C2images12.png)
     
 这里的意思是将 pos 的位置映射为一个 d_model 维的位置向量，这个向量的第 i 个元素的数值就是 ${PE}_{(pos,i)}$。<p>
 其中，2i 指的是 embedding 词向量的偶数维度，2i+1 指的是embedding 词向量的奇数维度。<p>
 虽然“d_model”是固定的，但“pos”和“i”会变化。让我们试着理解后两者：
 由于“sin”曲线以间隔重复，在下图中可以看到，尽管 $P_0$ 和 $P_6$ 处于两个截然不同的位置，但它们具有相同的位置嵌入值。这就是等式中的“i”部分发挥作用的地方。
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images13.png)
+![图片描述](./images/C2images13.png)
     
 如果改变上述等式中的“i”，将得到一系列具有不同频率的曲线。通过读取不同频率的位置嵌入值，最终会为  $P_0$和 $P_6$ 在不同嵌入维度上提供不同的值。
     
@@ -275,7 +275,7 @@ $\ \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \$
 ### 4.2.3 相对位置信息
 相对位置:  周期性变化规律
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter2/images/C2images14.png)
+![图片描述](./images/C2images14.png)
     
 可以看到某个序列中不同位置的单词，在某一维度上的位置编码数值不一样，即同一序列的不同单词在单个纬度符合某个正弦或者余弦，可认为他们的具有相对关系。<p>
 总结来说，Positional Encoding 公式通过结合周期性、位置差异、维度特定编码和平滑变化，为序列中的每个单词提供了一个独特的编码，这反映了单词的相对位置信息，并允许 Transformer 模型在处理序列数据时考虑到这些位置信息。
