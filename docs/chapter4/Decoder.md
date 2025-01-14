@@ -25,7 +25,7 @@ $s_1,s_2,\ldots,s_{t-1}$
         
 ## 1.2 Decoder子结构
         
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter4/images/C4images1.PNG)
+![图片描述](./images/C4images1.PNG)
         
 解码器同样采用了6层堆叠的结构，并划分为三个子结构。与编码器相比，解码器主要有以下三个不同点：<p>
 子结构-1 **实现了“Mask”的多头注意力机制**，这是为了防止模型在预测过程中提前“窥视”到未来的数据，从而**避免信息泄露**。<p>
@@ -132,7 +132,7 @@ $s_1,s_2,\ldots,s_{t-1}$
 
 掩码存在的三个位置：
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter4/images/C4images2.png)
+![图片描述](./images/C4images2.png)
     
 ## 2.3 Mask-Multi-Head-Attention
 Mask 的目的是防止 Decoder “seeing the future”，就像防止考生偷看考试答案一样。这里mask是一个下三角矩阵，对角线以及对角线左下都是1，其余都是0。下面是个10维度的下三角矩阵
@@ -182,7 +182,7 @@ tensor([[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ### 2.4.3 训练和损失函数
 在训练过程中，我们使用损失函数（例如交叉熵损失）将生成的输出概率分布与目标序列进行比较。概率分布给出了每个单词出现在该位置的概率。
     
-![images](https://github.com/Spr1ng7/fun-transformer/blob/main/docs/chapter4/images/C4images3.png)
+![图片描述](./images/C4images3.png)
     
 如上图所示，假设我们的目标词汇表只包含四个单词。我们的目标是生成一个与预期目标序列“De nada END”相匹配的概率分布。<p>
 这意味着第一个单词位置的概率分布中“De”的概率应该为 1，而词汇表中所有其他单词的概率为 0。类似地，“nada”和“END”在第二个和第三个单词位置的概率分别应该为 1。<p>
