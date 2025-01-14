@@ -9,7 +9,7 @@
 
 除了第一个 Encoder 之外的其他 Encoder 子模块，它们从**前一个** Encoder 接收相应的输入（inputs），这样就形成了一个顺序传递信息的链路。
 
-![图片描述](./images/C3images1.PNG)
+![图片描述](./images/C3image1.PNG)
 
 ### 1.1.2 核心处理阶段
 **(1)多头自注意力层处理**
@@ -38,14 +38,14 @@
 ## 1.2 Encoder 组成成分
 每个子模块就是下面图中右侧那个方块了。包含几个子部分：
 
-![图片描述](./images/C3images2.PNG)
+![图片描述](./images/C3image2.PNG)
 
 - Multi-Head Attention
 - Residual connection
 - Normalisation
 - Position-wise Feed-Forward Networks
 
-![图片描述](./images/C3images3.PNG)
+![图片描述](./images/C3image3.PNG)
 
 在 Transformer 模型中，Encoder 部分由多个相同的 Encoder Layer 堆叠而成，每个 Encoder Layer 包含两个主要子层，分别是 **Multi-Head Self-Attention 和 Position-wise Feed-Forward Network。**
 
@@ -68,25 +68,25 @@ Q、K 和 V 分别代表 Query（查询）、Key（键）和 Value（值）。�
 ## 2.1 缩放点积注意力(Scaled Dot-Product Attention)
 self-attention 的输入是序列词向量，此处记为 x。而 x 经过一个线性变换得到 query(Q), x经过第二个线性变换得到 key(K),  x经过第三个线性变换得到 value(V)。
     
-![图片描述](./images/C3images4.png)
+![图片描述](./images/C3image4.png)
     
 也就是说，Q、K、V 都是对输入 x 的线性映射：
 - query = linear_q(x)
 - key = linear_k(x)
 - value = linear_v(x)
     
-![图片描述](./images/C3images5.png)
+![图片描述](./images/C3image5.png)
     
 > “查询、键和值的概念来自检索系统。例如，当您键入查询以在 Youtube 上搜索某些视频时，搜索引擎会将您的查询与数据库中与候选视频相关的一组键（视频标题、描述等）进行映射，然后向您显示最匹配的视频（值）。
     
-![图片描述](./images/C3images6.png)
+![图片描述](./images/C3image6.png)
     
 注意：这里的 linear_q(x)，linear_k(x)，linear_v(x) 相互独立，通过 softmax 函数对 Query（Q）和 Key（K）向量缩放点积的分数进行归一化，得到权重系数（attention weights），值都介于0到1之间。按照公式：
 $Attention(Q, K, V)=softmax(\frac{QK^T}{\sqrt{d_k}})V$
 使用权重系数对Value（V）向量进行加权求和，得到最终的注意力输出 Attention(Q, K, V)。 
 
 ### 2.1.1 如何得到缩放因子
-![图片描述](./images/C3images7.png)
+![图片描述](./images/C3image7.png)
 在多头注意力机制中，参数 $d_k$ (每个头的维度）通常是由总的模型维度 $d_{model}$ 和多头注意力的头数 (h) 决定的。具体来说，$d_k$ 通常是这样计算的：$d_k=\frac{d_{\mathrm{model}}}h$
 
 这样做有几个原因：
@@ -107,11 +107,11 @@ $Attention(Q, K, V)=softmax(\frac{QK^T}{\sqrt{d_k}})V$
     
 ## 2.2 多头注意力机制(Multi-Head Attention)
     
-![图片描述](./images/C3images8.png)
+![图片描述](./images/C3image8.png)
     
 多头(Multi-Head) 的方式是将**多个 head 的输出 z**，进行**拼接**（**concat**）后，通过线性变换得到**最后的输出 z**。
     
-![图片描述](./images/C3images9.png)
+![图片描述](./images/C3image9.png)
     
 Multi-Head Attention把Q,K,V通过参数矩阵映射，然后再做Attention，把这个过程重复做 h 次，结果拼接起来。<p>
 具体用公式表达：
@@ -156,7 +156,7 @@ $h=8\text{, }d_k=d_v=d_{model}/4=64$
 2. MaskedDecoder Self-Attention ：Decoder 阶段捕获当前 word 与已经看到的解码词之间的关联，从矩阵上直观来看就是一个带有 mask 的三角矩阵；
 3. Encoder-Decoder Attention：就是将 Decoder 和 Encoder 输入建立联系，和之前那些普通 Attention 一样；
     
-![图片描述](./images/C3images10.png)
+![图片描述](./images/C3image10.png)
     
 在 Google 的论文中，所采用的大部分 Attention 机制为 Self Attention，也就是 “自注意力”，亦称为内部注意力。
 
