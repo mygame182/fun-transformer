@@ -106,35 +106,46 @@ $PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$
 
 重新用Conda创造一个干净的环境，做为项目的专用python环境。
 在CMD中输入，
->conda create --name env_name python=3.9/3.8...
+```bash
+conda create --name env_name python=3.9/3.8...
+```
 
 之后安装相应的库。（记得在对应的环境中）
->pip install package_name<p>
->conda install  package_name
+```bash
+pip install package_name<p>
+conda install  package_name
+```
 
 **注意**：在VSCode中的终端选择正确的内核。如果想要在jupyter中安装，则ipynb文件单元格中应该是
->%pip install package_name
+```bash
+%pip install package_name
+```
+
 
 安装相应库后，要重启jupyter内核，程序才能找到包。
 
 ### 6. **numpy与gensim包冲突怎么解决？**
 在CMD输入
-
->pip install --upgrade gensim
-
+```bash
+pip install --upgrade gensim
+```
 自动更新gensim包，并且会检查numpy包是否符合要求，卸载并安装合适的numpy包。
 
 在CMD输入
->pip check
-
+```bash
+pip check
+No broken requirements found.
+```
 可查看有无冲突的包。
->No broken requirements found.
+
 
 ### 7. **怎么在VSCode中查看jupyter的变量值？**
 
 安装扩展（ctrl+shift+x）Data Wrangler。
 VSCode提示安装相应的包，选择确定即可。或者我们自行在终端输入（安装相应的包）。
->pip install package_name
+```bash
+pip install package_name
+```
 
 Data Wrangler 的核心依赖包包括：
 - pandas、numpy：数据处理。
