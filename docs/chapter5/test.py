@@ -13,7 +13,9 @@ print(torch.cuda.get_device_name(0))
 
 
 '''
-# 要在GPU上运行，需要把所有数据加载到GPU上，包括中间的计算结果，模型，损失函数，优化器等等
+# 要在GPU上运行，需要把所有数据加载到GPU上，包括中间的计算结果，
+# 模型 Transformer 和 nn.LayerNorm 都要加载到GPU上
+# 损失函数，优化器等等
 '''
 
 
@@ -235,7 +237,9 @@ class MultiHeadAttention(nn.Module):
         # 拼接多头的结果
         context = context.transpose(1, 2).reshape(batch_size, -1, n_heads * d_v) # context: [batch_size, len_q, n_heads * d_v(d_model)]
         output = self.fc(context)                                                # d_v fc之后变成d_model -> [batch_size, len_q, d_model]
-        return nn.LayerNorm(d_model).to(device)(output + residual), attn #nn.LayerNorm默认是在CPU上，我们要移动到GPU上
+        # Add & Norm 加载在GPU上
+        # nn.LayerNorm默认是在CPU上 我们要＋ .to(device)
+        return nn.LayerNorm(d_model).to(device)(output + residual), attn 
 
 
 '''
