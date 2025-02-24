@@ -25,15 +25,16 @@ print('device:', device)
              # Encoder_input    Decoder_input          Decoder_output(预测下一个字符)
 sentences = [['我 是 学 生 P' , 'S I am a student'   , 'I am a student E'],         # S: 开始符号
              ['我 喜 欢 学 习', 'S I like learning P', 'I like learning P E'],      # E: 结束符号
-             ['我 是 男 生 P' , 'S I am a boy'       , 'I am a boy E']]             # P: 占位符号，如果当前句子不足固定长度用P占位 pad补0
+             ['我 是 男 生 P' , 'S I am a boy'       , 'I am a boy E'],
+             ['我 是 女 生 P' , 'S I am a girl'      , 'I am a girl E']]             # P: 占位符号，如果当前句子不足固定长度用P占位 pad补0
 
 # 以下的一个batch中是sentences[0,1]
-src_vocab = {'P':0, '我':1, '是':2, '学':3, '生':4, '喜':5, '欢':6,'习':7,'男':8}   # 词源字典  字：索引
+src_vocab = {'P':0, '我':1, '是':2, '学':3, '生':4, '喜':5, '欢':6,'习':7,'男':8, '女':9 }   # 词源字典  字：索引
 src_idx2word = {src_vocab[key]: key for key in src_vocab}
 src_vocab_size = len(src_vocab)                 # 字典字的个数
 
 # 生成目标中 'S'是0填充的
-tgt_vocab = {'S':0, 'E':1, 'P':2, 'I':3, 'am':4, 'a':5, 'student':6, 'like':7, 'learning':8, 'boy':9}
+tgt_vocab = {'S':0, 'E':1, 'P':2, 'I':3, 'am':4, 'a':5, 'student':6, 'like':7, 'learning':8, 'boy':9, 'girl':10 }
 idx2word = {tgt_vocab[key]: key for key in tgt_vocab}                               # 把目标字典转换成 索引：字的形式
 tgt_vocab_size = len(tgt_vocab)                                                     # 目标字典尺寸
 
@@ -68,7 +69,8 @@ enc_inputs, dec_inputs, dec_outputs = enc_inputs.to(device), dec_inputs.to(devic
 
 '''
 sentences 里一共有三个训练数据，中文->英文。把Encoder_input、Decoder_input、Decoder_output转换成字典索引，
-例如"学"->3、“student”->6。再把数据转换成batch大小为2的分组数据，3句话一共可以分成两组，一组2句话、一组1句话。src_len表示中文句子
+例如"学"->3、“student”->6。再把数据转换成!!!batch大小为2的分组数据，
+3句话一共可以分成两组，一组2句话、一组1句话。src_len表示中文句子
 固定最大长度，tgt_len 表示英文句子固定最大长度。
 '''
 #自定义数据集函数
@@ -89,15 +91,20 @@ class MyDataSet(Data.Dataset):
 # DataLoader 
 让数据加载到 GPU，不要使用 pin_memory=True（只对 CPU 数据有效），因为 DataLoader 会自动将数据加载到 GPU 的显存中
 多线程（num_workers>0）不支持 GPU 数据
+batch_size可以调整，但是要保证能被整除
 '''
 loader = Data.DataLoader(MyDataSet(enc_inputs, dec_inputs, dec_outputs), batch_size=2, 
                         shuffle=False, pin_memory=False, num_workers=0) 
 
+'''
+可以调整的超参数
+'''
 d_model = 512   # 字 Embedding 的维度
 d_ff = 2048     # 前向传播隐藏层维度
 d_k = d_v = 64  # K(=Q), V的维度. V的维度可以和K=Q不一样
-n_layers = 6    # 有多少个encoder和decoder
+n_layers = 6    # 有多少个encoder和decoder 默认6
 n_heads = 8     # Multi-Head Attention设置为8
+
 
 # 位置嵌入，position Embedding
 class PositionalEncoding(nn.Module):
@@ -530,7 +537,7 @@ optimizer = optimizer_SGD
 '''
 # 训练Transformer
 '''
-epoch_num = 20 # 训练20轮 不一定要越多越好 但太少肯定不行 关键看loss的变化
+epoch_num = 50 # 训练20轮 不一定要越多越好 但太少肯定不行 关键看loss的变化
 
 time_start = time.time()
 
@@ -577,18 +584,23 @@ def test(model, enc_input, start_symbol):
     return dec_input
 
 
-enc_inputs, _, _ = next(iter(loader))
+# 利用迭代器 只获取一个批次（batch）的数据
+# enc_inputs, _, _ = next(iter(loader))
+
+# 显式地加载数据 获取整个数据集的数据
+enc_inputs, _, _ = loader.dataset.enc_inputs, loader.dataset.dec_inputs, loader.dataset.dec_outputs
 # enc_input只取一个例子[1] 或 [0]
 # 预测dec_input
 # dec_input全部预测出来之后，在输入Model预测 dec_output
-print(enc_inputs[1].view(1, -1))
+
+print(enc_inputs)
 
 
-predict_dec_input = test(model, enc_inputs[0].view(1, -1), start_symbol=tgt_vocab["S"])    # [1, tgt_len]
+predict_dec_input = test(model, enc_inputs[3].view(1, -1), start_symbol=tgt_vocab["S"])    # [1, tgt_len]
 
 
 # 然后走一遍完整的过程
-predict, _, _, _ = model(enc_inputs[0].view(1, -1), predict_dec_input)    # [tat_len, tgt_voc_size]
+predict, _, _, _ = model(enc_inputs[3].view(1, -1), predict_dec_input)    # [tat_len, tgt_voc_size]
 
 predict = predict.data.max(1, keepdim=True)[1]
-print([src_idx2word[int(i)] for i in enc_inputs[0]], '->', [idx2word[n.item()] for n in predict.squeeze()])
+print([src_idx2word[int(i)] for i in enc_inputs[3]], '->', [idx2word[n.item()] for n in predict.squeeze()])
